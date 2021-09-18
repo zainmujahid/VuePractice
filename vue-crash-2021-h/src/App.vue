@@ -13,11 +13,13 @@
       @delete-task="deleteTask"
       :tasks="tasks"
     />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
@@ -25,6 +27,7 @@ export default {
   name: "App",
   components: {
     Header,
+    Footer,
     Tasks,
     AddTask,
   },
@@ -78,10 +81,10 @@ export default {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(updTask)
+        body: JSON.stringify(updTask),
       });
 
-      const data = await res.json()
+      const data = await res.json();
 
       this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, reminder: data.reminder } : task
