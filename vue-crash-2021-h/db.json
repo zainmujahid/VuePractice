@@ -23,6 +23,12 @@
       "text": "Appt with HR",
       "day": "Friday at 04:00Pm",
       "reminder": true
+    },
+    {
+      "text": "Meeting with Team Lead",
+      "day": "Wed at 5AM",
+      "reminder": false,
+      "id": 98652
     }
   ]
 }
