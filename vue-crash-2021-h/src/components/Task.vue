@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="[task.reminder ? 'reminder' : '', 'task']">
     <h3>{{ task.text }}
         <i class="fas fa-times"></i>
     </h3>
@@ -20,7 +20,7 @@ export default {
 .fas {
   color: red;
 }
-div {
+.task {
   background: #f4f4f4;
   margin: 5px;
   padding: 10px 20px;
