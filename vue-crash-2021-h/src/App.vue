@@ -35,27 +35,8 @@ export default {
     };
   },
 
-  created() {
-    this.tasks = [
-      {
-        id: "1",
-        text: "Doctors Appointment",
-        day: "March 5th at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: "2",
-        text: "Meeting with boss",
-        day: "March 6th at 1:30pm",
-        reminder: true,
-      },
-      {
-        id: "3",
-        text: "Food shopping",
-        day: "March 7th at 2:00pm",
-        reminder: false,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
   },
 
   methods: {
@@ -63,8 +44,18 @@ export default {
       this.showAddTask = !this.showAddTask;
     },
 
-    addTask(task) {
-      this.tasks = [...this.tasks, task];
+    async addTask(task) {
+      const res = await fetch("api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+
+      const data = await res.json()
+
+      this.tasks = [...this.tasks, data];
     },
 
     deleteTask(id) {
@@ -77,6 +68,20 @@ export default {
       this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, reminder: !task.reminder } : task
       );
+    },
+
+    async fetchTasks() {
+      const res = await fetch("api/tasks");
+      const data = await res.json();
+
+      return data;
+    },
+
+    async fetchTask(id) {
+      const res = await fetch(`api/tasks/${id}`);
+      const data = await res.json();
+
+      return data;
     },
   },
 };
